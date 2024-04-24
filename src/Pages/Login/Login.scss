@@ -1,0 +1,29 @@
+.loginPage {
+    background-color: var(--primary-color);
+    min-width: 100vw;
+    min-height: 100vh;
+
+    .mainContent {
+        height: 100vh;
+    }
+
+    .panel {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .panelContent {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        background: var(--second-color);
+        color: white;
+        border-radius: 3px;
+
+        h1 {
+            margin-bottom: 30px;
+        }
+    }
+}
