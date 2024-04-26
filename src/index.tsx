@@ -20,6 +20,7 @@ import UserForm from './Pages/Users/Form/UserForm';
 import User from './Pages/Users/User';
 import reportWebVitals from './reportWebVitals';
 import About from './Pages/About/About';
+import ClientForm from './Pages/Clients/Form/ClientForm';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
   {
     path: '/client',
     element: <Client></Client>
+  },
+  {
+    path: '/client/:id',
+    element: <ClientForm></ClientForm>
   },
   {
     path: '/settings',

@@ -7,8 +7,11 @@ import Layout from '../../Layout/Layout';
 import ClientModel from '../../Models/ClientModel';
 import { getClients } from '../../Services/ClientService';
 import './Client.scss';
+import { FaPencil } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 
 export default function Client() {
+    const navigate = useNavigate();
     const [clients, setClients] = useState<ClientModel[]>();
     const [loading, setLoading] = useState(false);
 
@@ -18,6 +21,12 @@ export default function Client() {
             setClients(response);
         }).finally(() => setLoading(false));
     }, []);
+
+    const editTemplate = (rowData: any, column: any) => {
+        return <div style={{ cursor: 'pointer' }}>
+            <FaPencil onClick={() => navigate(`/client/${rowData.id}`)}></FaPencil>
+        </div>;
+    }
 
     return (
         <Layout>
@@ -33,8 +42,9 @@ export default function Client() {
                         <Column field="name" header="Client Name"></Column>
                         <Column field="url" header="URL"></Column>
                         <Column field="createdAt" header="Created At"></Column>
+                        <Column header='Actions' body={editTemplate}></Column>
                     </DataTable>
-                    <Button label='Add'></Button>
+                    <Button label='Add' onClick={() => navigate('/client/0')}></Button>
                 </Card>
             </div>
         </Layout>
