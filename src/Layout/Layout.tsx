@@ -14,7 +14,7 @@ export default function Layout(props: { children?: any }) {
                     </div>
                     <div className="menuList">
                         <span className='menuItem'>Home</span>
-                        <span className='menuItem'>About</span>
+                        <span className='menuItem' onClick={() => { navigate('/about') }}>About</span>
 
                         <div className="separator"></div>
                         <span className="menuTitle">Management</span>

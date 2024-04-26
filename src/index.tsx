@@ -19,6 +19,7 @@ import AuthSettings from './Pages/Settings/AuthSettings';
 import UserForm from './Pages/Users/Form/UserForm';
 import User from './Pages/Users/User';
 import reportWebVitals from './reportWebVitals';
+import About from './Pages/About/About';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home></Home>
+  },
+  {
+    path: '/about',
+    element: <About></About>
   },
   {
     path: '/user',
