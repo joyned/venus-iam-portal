@@ -13,11 +13,15 @@ import './User.scss';
 
 export default function User() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState<UserModel[]>();
 
     useEffect(() => {
+        setLoading(true);
         getUsers().then((response: any) => {
             setUsers(response);
+        }).finally(() => {
+            setLoading(false);
         });
     }, []);
 
@@ -36,7 +40,7 @@ export default function User() {
                         <p>Below is the list of users currently registered in your tenant. You can see their names, email addresses, and other relevant information.</p>
                         <p>To edit a user's information, simply click on their ID in the list. You'll be taken to a page where you can update their details, such as name, email, and role.</p>
                     </div>
-                    <DataTable value={users} tableStyle={{ width: '100%' }}>
+                    <DataTable value={users} tableStyle={{ width: '100%' }} loading={loading}>
                         <Column field="id" header="ID"></Column>
                         <Column field="name" header="Name"></Column>
                         <Column field="email" header="E-mail"></Column>

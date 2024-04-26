@@ -1,15 +1,16 @@
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { InputText } from 'primereact/inputtext';
 import { PickList } from 'primereact/picklist';
 import { SelectButton } from 'primereact/selectbutton';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../../Layout/Layout';
 import GroupModel from '../../../Models/GroupModel';
 import UserModel from '../../../Models/UserModel';
 import { getGroups } from '../../../Services/GroupService';
-import { getUserById } from '../../../Services/UserService';
+import { deleteUser, getUserById, saveUser } from '../../../Services/UserService';
 import { filterByIdAndRemoveItems } from '../../../Utils/Utils';
 import './UserForm.scss';
 
@@ -25,6 +26,8 @@ const options = [
 ]
 
 export default function UserForm() {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<UserModel>(new UserModel());
     const [groups, setGroups] = useState<GroupModel[]>([]);
     const [passwordOption, setPasswordOption] = useState();
@@ -35,7 +38,7 @@ export default function UserForm() {
     useEffect(() => {
         getGroups().then(groupsResponse => {
             setGroups(groupsResponse);
-            if (params.id) {
+            if (params.id && Number(params.id) !== 0) {
                 getUserById(params.id).then((response: any) => {
                     setUser(response);
                     setSelectedGroups(response.groups);
@@ -43,7 +46,7 @@ export default function UserForm() {
                 });
             }
         });
-    }, []);
+    }, [params.id]);
 
     function setName(value: string): void {
         user.name = value;
@@ -70,17 +73,39 @@ export default function UserForm() {
         );
     };
 
-    function save(e: any) {
+    const confirmDelete = (e: any) => {
+        e.preventDefault();
+        confirmDialog({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept: acceptDelete
+        });
+    };
+
+    const acceptDelete = () => {
+        if (user.id) {
+            deleteUser(user.id).then(() => navigate('/user'));
+        }
+    }
+
+    function handleSubmit(e: any) {
+        setLoading(true)
         user.groups = selectedGroups;
-        console.log(user);
+        saveUser(user)
+            .then(() => navigate('/user'))
+            .finally(() => setLoading(false));
         e.preventDefault();
     }
 
     return (
         <Layout>
             <div className="userEditPage">
+                <ConfirmDialog />
                 <Card title={user?.name ? user.name : 'New User'}>
-                    <form className="userEditForm" onSubmit={save}>
+                    <form className="userEditForm" onSubmit={handleSubmit}>
                         <div className="item">
                             <span>Name:</span>
                             <InputText value={user.name} onChange={(e) => setName(e.target.value)} />
@@ -107,7 +132,9 @@ export default function UserForm() {
                                 sourceHeader="Available" targetHeader="Selected" sourceStyle={{ height: '24rem' }} targetStyle={{ height: '24rem' }} />
                         </div>
 
-                        <Button label='Save'></Button>
+                        <Button label='Save' disabled={loading}></Button>
+                        <Button label="Delete" onClick={(e) => confirmDelete(e)} severity="danger"
+                            style={{ marginLeft: '0.5em' }} disabled={user.id === undefined} />
                     </form>
                 </Card>
             </div>

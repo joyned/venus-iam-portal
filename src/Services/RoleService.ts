@@ -1,24 +1,25 @@
-import RoleModel from "../Models/RoleModel"
+import RoleModel from "../Models/RoleModel";
+import { del, get, post } from "./RequestService";
 
 const getRoles = async () => {
-    return new Promise<RoleModel[]>((resolve) => {
-        resolve([
-            {
-                id: '51deae43-f0a6-430b-9baa-234b4e404e9d',
-                name: 'SUPPORT',
-                groupsIn: 12,
-                createdAt: new Date().toUTCString()
-            },
-            {
-                id: '2f662b3c-96d9-445d-86eb-895026448feb',
-                name: 'ADMIN',
-                groupsIn: 3,
-                createdAt: new Date().toUTCString()
-            }
-        ])
-    })
+    return get<RoleModel>('role');
+}
+
+const getRoleById = async (roleId: string): Promise<RoleModel> => {
+    return get<RoleModel>(`role/${roleId}`);
+}
+
+const saveRole = async (role: RoleModel): Promise<RoleModel> => {
+    return post<RoleModel>(`role`, role);
+}
+
+const deleteRole = async (roleId: string): Promise<string> => {
+    return del<string>(`role/${roleId}`);
 }
 
 export {
-    getRoles
-}
+    getRoles,
+    getRoleById,
+    saveRole,
+    deleteRole
+};

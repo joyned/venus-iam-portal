@@ -1,15 +1,23 @@
-import GroupModel from "../Models/GroupModel"
+import GroupModel from "../Models/GroupModel";
+import { del, get, post } from "./RequestService";
 
 const getGroups = async () => {
-    return new Promise<GroupModel[]>((resolve) => {
-        fetch(`${process.env.REACT_APP_API_HOST}/group`).then(response => {
-            response.json().then(data => {
-                resolve(data);
-            })
-        })
-    })
+    return get<GroupModel[]>('group');
+}
+
+const getGroupById = async (groupId: string) => {
+    return get<GroupModel>(`group/${groupId}`);
+}
+
+const saveGroup = async (group: GroupModel) => {
+    return post<GroupModel>('group', group);
+}
+
+const deleteGroup = async (groupId: string) => {
+    return del<GroupModel>(`group/${groupId}`);
 }
 
 export {
-    getGroups
-}
+    deleteGroup, getGroupById, getGroups, saveGroup
+};
+
