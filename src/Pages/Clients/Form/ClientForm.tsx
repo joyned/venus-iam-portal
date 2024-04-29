@@ -98,9 +98,9 @@ export default function ClientForm() {
         }
     }
 
-    const copyToClipboard = (e: any) => {
-        if (clientSecret) {
-            navigator.clipboard.writeText(clientSecret)
+    const copyToClipboard = (e: any, value?: string) => {
+        if (value) {
+            navigator.clipboard.writeText(value)
         }
         e.preventDefault();
     }
@@ -117,12 +117,13 @@ export default function ClientForm() {
                         <span>URL:</span>
                         <InputText value={clientUrl} onChange={(e) => setClientUrl(e.target.value)} />
                         <span>Client ID:</span>
-                        <InputText value={clientId} disabled={true} />
+                        <InputText value={clientId} disabled={true} style={{ width: '95%', marginRight: '20px' }} />
+                        <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e, clientId)}></Button>
                         <span>Client Secret:</span>
                         {clientSecret && (
                             <div>
-                                <Password value={clientSecret} disabled={true} style={{ width: '90%', marginRight: '20px' }} />
-                                <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e)}></Button>
+                                <Password value={clientSecret} disabled={true} style={{ width: '95%', marginRight: '20px' }} />
+                                <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e, clientSecret)}></Button>
                             </div>
                         )}
                         <span>Allowed URLs:</span>
