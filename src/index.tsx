@@ -18,6 +18,7 @@ import User from "./Pages/Users/User";
 import reportWebVitals from "./reportWebVitals";
 import About from "./Pages/About/About";
 import ClientForm from "./Pages/Clients/Form/ClientForm";
+import Guard from "./Security/Guard";
 
 const router = createBrowserRouter([
   {
@@ -26,50 +27,95 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home></Home>,
+    element: (
+      <Guard>
+        <Home></Home>
+      </Guard>
+    ),
   },
   {
     path: "/about",
-    element: <About></About>,
+    element: (
+      <Guard>
+        <About></About>
+      </Guard>
+    ),
   },
   {
     path: "/user",
-    element: <User></User>,
+    element: (
+      <Guard>
+        {" "}
+        <User></User>
+      </Guard>
+    ),
   },
   {
     path: "/user/:id",
-    element: <UserForm></UserForm>,
+    element: (
+      <Guard>
+        <UserForm></UserForm>
+      </Guard>
+    ),
   },
   {
     path: "/role",
-    element: <Role></Role>,
+    element: (
+      <Guard>
+        <Role></Role>
+      </Guard>
+    ),
   },
   {
     path: "/role/:id",
-    element: <RoleForm></RoleForm>,
+    element: (
+      <Guard>
+        <RoleForm></RoleForm>
+      </Guard>
+    ),
   },
   {
     path: "/group",
-    element: <Group></Group>,
+    element: (
+      <Guard>
+        <Group></Group>
+      </Guard>
+    ),
   },
   {
     path: "/group/:id",
-    element: <GroupForm></GroupForm>,
+    element: (
+      <Guard>
+        <GroupForm></GroupForm>
+      </Guard>
+    ),
   },
   {
     path: "/client",
-    element: <Client></Client>,
+    element: (
+      <Guard>
+        <Client></Client>
+      </Guard>
+    ),
   },
   {
     path: "/client/:id",
-    element: <ClientForm></ClientForm>,
+    element: (
+      <Guard>
+        <ClientForm></ClientForm>
+      </Guard>
+    ),
   },
   {
     path: "/settings",
     children: [
       {
         path: "auth",
-        element: <AuthSettings></AuthSettings>,
+        element: (
+          <Guard>
+            <AuthSettings></AuthSettings>
+          </Guard>
+        ),
       },
     ],
   },
