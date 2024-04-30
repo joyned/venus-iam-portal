@@ -1,8 +1,31 @@
+import { Button } from 'primereact/button';
+import { Menu } from 'primereact/menu';
+import { MenuItem } from 'primereact/menuitem';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Layout.scss'
-import { FaCircleUser } from "react-icons/fa6";
+import './Layout.scss';
 
 export default function Layout(props: { children?: any }) {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const menuUserTopBar = useRef<Menu>(null);
+    const menuUserItems: MenuItem[] = [
+        {
+            label: user.name,
+            items: [
+                {
+                    label: 'Logout',
+                    icon: 'pi pi-sign-out',
+                    command: () => {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                        navigate('/')
+                    }
+                }
+            ]
+        }
+    ];
+
+
     const navigate = useNavigate();
     return (
         <div className="layoutContent">
@@ -30,12 +53,19 @@ export default function Layout(props: { children?: any }) {
                 </div>
             </div>
             <div className="topMenu">
+                <Menu model={menuUserItems} popup ref={menuUserTopBar} id="popup_menu_left" />
                 <div className="content">
                     <div className="settings">
-                        <i className="pi pi-cog"></i>
+                        <Button text icon="pi pi-cog" className="mr-2"
+                            aria-controls="popup_menu_left" aria-haspopup
+                            style={{ color: '#64748B' }} />
                     </div>
                     <div className="user">
-                        <FaCircleUser />
+                        <Menu model={menuUserItems} popup ref={menuUserTopBar} id="popup_menu_left" />
+                        <Button text icon="pi pi-user" className="mr-2"
+                            onClick={(event) => menuUserTopBar.current?.toggle(event)}
+                            aria-controls="popup_menu_left" aria-haspopup
+                            style={{ color: '#64748B' }} />
                     </div>
                 </div>
             </div>
