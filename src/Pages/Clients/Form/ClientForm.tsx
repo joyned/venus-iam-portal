@@ -124,12 +124,16 @@ export default function ClientForm() {
                         <InputText value={clientName} onChange={(e) => setClientName(e.target.value)} />
                         <span>URL:</span>
                         <InputText value={clientUrl} onChange={(e) => setClientUrl(e.target.value)} />
-                        <span>Client ID:</span>
-                        <InputText value={clientId} disabled={true} style={{ width: '95%', marginRight: '20px' }} />
-                        <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e, clientId)}></Button>
-                        <span>Client Secret:</span>
+                        {clientId && (
+                            <div>
+                                <span>Client ID:</span>
+                                <InputText value={clientId} disabled={true} style={{ width: '95%', marginRight: '20px' }} />
+                                <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e, clientId)}></Button>
+                            </div>
+                        )}
                         {clientSecret && (
                             <div>
+                                <span>Client Secret:</span>
                                 <Password value={clientSecret} disabled={true} style={{ width: '95%', marginRight: '20px' }} />
                                 <Button icon="pi pi-copy" onClick={(e) => copyToClipboard(e, clientSecret)}></Button>
                             </div>
