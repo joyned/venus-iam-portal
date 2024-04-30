@@ -56,6 +56,13 @@ export default function ClientForm() {
 
         saveClient(client)
             .then(() => navigate('/client'))
+            .catch((err) => {
+                if (err.status === 403) {
+                    toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                } else {
+                    toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                }
+            })
             .finally(() => setLoading(false));
 
         event.preventDefault();
@@ -78,11 +85,12 @@ export default function ClientForm() {
             deleteClient(client.id)
                 .then(() => navigate('/client'))
                 .catch((err) => {
-                    toast.current?.show({
-                        severity: 'error', summary: 'Error',
-                        detail: 'An error occured. Please, contact support.', life: 3000
-                    });
-                });
+                    if (err.status === 403) {
+                        toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                    } else {
+                        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                    }
+                })
         }
     }
 

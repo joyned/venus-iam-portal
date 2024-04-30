@@ -52,7 +52,22 @@ export default function GroupForm() {
         group.name = groupName;
         group.roles = selectedRoles;
         setLoading(true);
-        saveGroup(group).finally(() => { setLoading(false) });
+        saveGroup(group)
+            .catch((err) => {
+                if (err.data.errorKey === 'NOT_EDITABLE') {
+                    toast.current?.show({
+                        severity: 'error', summary: 'Error',
+                        detail: 'This item is not editable.', life: 3000
+                    });
+                } else {
+                    if (err.status === 403) {
+                        toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                    } else {
+                        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                    }
+                }
+            })
+            .finally(() => { setLoading(false) });
         event.preventDefault();
     }
 
@@ -80,10 +95,11 @@ export default function GroupForm() {
                             detail: 'This item is not editable.', life: 3000
                         });
                     } else {
-                        toast.current?.show({
-                            severity: 'error', summary: 'Error',
-                            detail: 'An error occured. Please, contact support.', life: 3000
-                        });
+                        if (err.status === 403) {
+                            toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                        } else {
+                            toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                        }
                     }
                 });
         }

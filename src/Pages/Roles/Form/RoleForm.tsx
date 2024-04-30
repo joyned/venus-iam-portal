@@ -48,10 +48,11 @@ export default function RoleForm() {
                         detail: 'This item is not editable.', life: 3000
                     });
                 } else {
-                    toast.current?.show({
-                        severity: 'error', summary: 'Error',
-                        detail: 'An error occured. Please, contact support.', life: 3000
-                    });
+                    if (err.status === 403) {
+                        toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                    } else {
+                        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                    }
                 }
             });
         event.preventDefault();
@@ -62,17 +63,10 @@ export default function RoleForm() {
             deleteRole(role.id)
                 .then(() => navigate('/role'))
                 .catch((err) => {
-                    if (err.data.errorKey === 'NOT_EDITABLE') {
-                        console.log('Item not editable');
-                        toast.current?.show({
-                            severity: 'error', summary: 'Error',
-                            detail: 'This item is not editable.', life: 3000
-                        });
+                    if (err.status === 403) {
+                        toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
                     } else {
-                        toast.current?.show({
-                            severity: 'error', summary: 'Error',
-                            detail: 'An error occured. Please, contact support.', life: 3000
-                        });
+                        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
                     }
                 });
         }

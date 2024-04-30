@@ -4,7 +4,8 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { InputText } from 'primereact/inputtext';
 import { PickList } from 'primereact/picklist';
 import { SelectButton } from 'primereact/selectbutton';
-import { useEffect, useState } from 'react';
+import { Toast } from 'primereact/toast';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../../Layout/Layout';
 import GroupModel from '../../../Models/GroupModel';
@@ -27,6 +28,7 @@ const options = [
 
 export default function UserForm() {
     const navigate = useNavigate();
+    const toast = useRef<Toast>(null);
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<UserModel>(new UserModel());
     const [groups, setGroups] = useState<GroupModel[]>([]);
@@ -87,7 +89,15 @@ export default function UserForm() {
 
     const acceptDelete = () => {
         if (user.id) {
-            deleteUser(user.id).then(() => navigate('/user'));
+            deleteUser(user.id)
+                .then(() => navigate('/user'))
+                .catch((err) => {
+                    if (err.status === 403) {
+                        toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                    } else {
+                        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                    }
+                });
         }
     }
 
@@ -96,7 +106,13 @@ export default function UserForm() {
         user.groups = selectedGroups;
         saveUser(user)
             .then(() => navigate('/user'))
-            .finally(() => setLoading(false));
+            .catch((error) => {
+                if (error.status === 403) {
+                    toast.current?.show({ severity: 'error', summary: 'Forbidden', detail: `You don't have access to this resource.` });
+                } else {
+                    toast.current?.show({ severity: 'error', summary: 'Error', detail: 'An error occurred while saving the user. Please, contact support.' });
+                }
+            }).finally(() => setLoading(false));
         e.preventDefault();
     }
 
@@ -104,6 +120,7 @@ export default function UserForm() {
         <Layout>
             <div className="userEditPage">
                 <ConfirmDialog />
+                <Toast ref={toast} />
                 <Card title={user?.name ? user.name : 'New User'}>
                     <form className="userEditForm" onSubmit={handleSubmit}>
                         <div className="item">
