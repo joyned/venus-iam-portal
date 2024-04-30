@@ -38,6 +38,7 @@ export default function UserForm() {
     const params = useParams();
 
     useEffect(() => {
+        setLoading(true)
         getGroups().then(groupsResponse => {
             setGroups(groupsResponse);
             if (params.id && Number(params.id) !== 0) {
@@ -45,6 +46,7 @@ export default function UserForm() {
                     setUser(response);
                     setSelectedGroups(response.groups);
                     setGroups(filterByIdAndRemoveItems(groupsResponse, response.groups));
+                    setLoading(false)
                 });
             }
         });
@@ -117,7 +119,7 @@ export default function UserForm() {
     }
 
     return (
-        <Layout>
+        <Layout loading={loading}>
             <div className="userEditPage">
                 <ConfirmDialog />
                 <Toast ref={toast} />

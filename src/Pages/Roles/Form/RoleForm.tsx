@@ -85,7 +85,7 @@ export default function RoleForm() {
     };
 
     return (
-        <Layout>
+        <Layout loading={loading}>
             <div className="roleFormPage">
                 <Card title={role?.name ? role.name : 'New Role'}>
                     <ConfirmDialog />

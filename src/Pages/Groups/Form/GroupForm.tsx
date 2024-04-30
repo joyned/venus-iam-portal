@@ -34,9 +34,10 @@ export default function GroupForm() {
                     setGroupName(group.name)
                     setSelectedRoles(group.roles);
                     setRoles(filterByIdAndRemoveItems(response, group.roles || []))
+                    setLoading(false);
                 });
             }
-        }).finally(() => setLoading(false));
+        });
     }, [params.id])
 
     function setName(value: string): void {
@@ -114,7 +115,7 @@ export default function GroupForm() {
     };
 
     return (
-        <Layout>
+        <Layout loading={loading}>
             <div className="groupFormPage">
                 <ConfirmDialog />
                 <Toast ref={toast} />

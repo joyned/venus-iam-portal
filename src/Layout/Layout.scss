@@ -3,6 +3,21 @@
     min-width: 100vw;
     background-color: var(--surface-ground);
 
+    .loadingOverlay {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background: #000000a3;
+        z-index: 999;
+
+        i {
+            font-size: 10rem;
+            position: relative;
+            left: 50vw;
+            top: 35%;
+        }
+    }
+
     .separator {
         border: 1px solid white;
         width: 100%;

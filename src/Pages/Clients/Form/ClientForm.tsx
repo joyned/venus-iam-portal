@@ -114,7 +114,7 @@ export default function ClientForm() {
     }
 
     return (
-        <Layout>
+        <Layout loading={loading}>
             <div className="clientFormPage">
                 <ConfirmDialog />
                 <Toast ref={toast} />

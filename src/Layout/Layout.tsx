@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Layout.scss';
 
-export default function Layout(props: { children?: any }) {
+export default function Layout(props: { children?: any, loading?: boolean }) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     const menuSideLeftItems: MenuItem[] = [
@@ -88,6 +88,11 @@ export default function Layout(props: { children?: any }) {
     const navigate = useNavigate();
     return (
         <div className="layoutContent" >
+            {props.loading && (
+                <div className="loadingOverlay">
+                    <i className="pi pi-spin pi-spinner"></i>
+                </div>
+            )}
             <div className="leftMenu">
                 <div className="content">
                     <Menu model={menuSideLeftItems} className='leftMenuContent' />
