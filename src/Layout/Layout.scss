@@ -32,27 +32,9 @@
                 }
             }
 
-            .menuList {
-                display: flex;
-                flex-direction: column;
-                padding: 0 10px;
-
-                .menuTitle {
-                    font-weight: bolder;
-                    color: var(--primary-color);
-                    cursor: initial;
-                    margin: 10px 0;
-                }
-
-                .menuItem {
-                    margin: 10px 0;
-                    cursor: pointer;
-                    color: var(--text-color);
-                }
-
-                .menuItem:hover {
-                    font-weight: bolder;
-                }
+            .leftMenuContent {
+                background-color: transparent;
+                border: none;
             }
         }
     }

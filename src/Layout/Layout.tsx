@@ -7,6 +7,65 @@ import './Layout.scss';
 
 export default function Layout(props: { children?: any }) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const menuSideLeftItems: MenuItem[] = [
+        {
+            template: () => {
+                return (
+                    <div className="title">
+                        <h1>TENANT</h1>
+                    </div>
+                );
+            }
+        },
+        {
+            separator: true
+        },
+        { label: 'Home', icon: 'pi pi-home' },
+        {
+            label: 'About',
+            icon: 'pi pi-search',
+            command: () => navigate('/about')
+        },
+        {
+            label: 'Management',
+            items:
+                [
+                    {
+                        label: 'Users',
+                        icon: 'pi pi-fw pi-user',
+                        command: () => navigate('/user')
+                    },
+                    {
+                        label: 'Roles',
+                        icon: 'pi pi-fw pi-id-card',
+                        command: () => navigate('/role')
+                    },
+                    {
+                        label: 'Groups',
+                        icon: 'pi pi-fw pi-users',
+                        command: () => navigate('/group')
+                    },
+                    {
+                        label: 'Clients',
+                        icon: 'pi pi-fw pi-desktop',
+                        command: () => navigate('/client')
+                    }
+                ]
+        },
+        {
+            label: 'Settings',
+            items:
+                [
+                    {
+                        label: 'Auth',
+                        icon: 'pi pi-fw pi-user',
+                        command: () => navigate('/settings/auth')
+                    },
+                ]
+        }
+    ]
+
     const menuUserTopBar = useRef<Menu>(null);
     const menuUserItems: MenuItem[] = [
         {
@@ -28,28 +87,10 @@ export default function Layout(props: { children?: any }) {
 
     const navigate = useNavigate();
     return (
-        <div className="layoutContent">
+        <div className="layoutContent" >
             <div className="leftMenu">
                 <div className="content">
-                    <div className="title">
-                        <h1>Tenant</h1>
-                        <div className="separator"></div>
-                    </div>
-                    <div className="menuList">
-                        <span className='menuItem'>Home</span>
-                        <span className='menuItem' onClick={() => { navigate('/about') }}>About</span>
-
-                        <div className="separator"></div>
-                        <span className="menuTitle">Management</span>
-                        <span className='menuItem' onClick={() => { navigate('/user') }}>Users</span>
-                        <span className='menuItem' onClick={() => { navigate('/role') }}>Roles</span>
-                        <span className='menuItem' onClick={() => { navigate('/group') }}>Groups</span>
-                        <span className='menuItem' onClick={() => { navigate('/client') }}>Clients</span>
-
-                        <div className="separator"></div>
-                        <span className="menuTitle">Settings</span>
-                        <span className='menuItem' onClick={() => { navigate('/settings/auth') }}>Auth</span>
-                    </div>
+                    <Menu model={menuSideLeftItems} className='leftMenuContent' />
                 </div>
             </div>
             <div className="topMenu">
