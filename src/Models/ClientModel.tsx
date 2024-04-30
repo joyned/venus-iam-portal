@@ -1,11 +1,11 @@
 import ClientAllowedUrlModel from "./ClientAllowedUrlModel";
 
 export default class ClientModel {
-    id?: string;
-    name?: string;
-    url?: string;
-    allowedUrls?: ClientAllowedUrlModel[];
-    clientId?: string;
-    clientSecret?: string;
-    createdAt?: string;
+  id?: string;
+  name?: string;
+  url?: string;
+  allowedUrls?: ClientAllowedUrlModel[];
+  clientId?: string;
+  clientSecret?: string;
+  createdAt?: string;
 }

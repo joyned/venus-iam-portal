@@ -1,87 +1,87 @@
 .layoutContent {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: var(--surface-ground);
+
+  .loadingOverlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #000000a3;
+    z-index: 999;
+
+    i {
+      font-size: 10rem;
+      position: relative;
+      left: 50vw;
+      top: 35%;
+    }
+  }
+
+  .separator {
+    border: 1px solid white;
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .leftMenu {
     min-height: 100vh;
-    min-width: 100vw;
-    background-color: var(--surface-ground);
+    width: 250px;
+    position: fixed;
+    background-color: var(--surface-overlay);
 
-    .loadingOverlay {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        background: #000000a3;
-        z-index: 999;
+    .content {
+      margin: 15px;
+      display: flex;
+      color: white;
+      flex-direction: column;
 
-        i {
-            font-size: 10rem;
-            position: relative;
-            left: 50vw;
-            top: 35%;
+      .title {
+        cursor: pointer;
+        color: var(--primary-color);
+
+        h1 {
+          padding-bottom: 20px;
+          width: 100%;
+          text-align: center;
         }
+      }
+
+      .leftMenuContent {
+        background-color: transparent;
+        border: none;
+      }
     }
+  }
 
-    .separator {
-        border: 1px solid white;
-        width: 100%;
-        margin: 5px 0;
+  .topMenu {
+    height: 50px;
+    margin-left: 200px;
+    padding-top: 20px;
+    background-color: var(--light-grey);
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 40px;
+      height: 100%;
+
+      .settings {
+        margin: 30px;
+        cursor: pointer;
+      }
+
+      .user {
+        cursor: pointer;
+        margin-left: 10px;
+      }
     }
+  }
 
-    .leftMenu {
-        min-height: 100vh;
-        width: 250px;
-        position: fixed;
-        background-color: var(--surface-overlay);
-
-        .content {
-            margin: 15px;
-            display: flex;
-            color: white;
-            flex-direction: column;
-
-            .title {
-                cursor: pointer;
-                color: var(--primary-color);
-
-                h1 {
-                    padding-bottom: 20px;
-                    width: 100%;
-                    text-align: center;
-                }
-            }
-
-            .leftMenuContent {
-                background-color: transparent;
-                border: none;
-            }
-        }
-    }
-
-    .topMenu {
-        height: 50px;
-        margin-left: 200px;
-        padding-top: 20px;
-        background-color: var(--light-grey);
-
-        .content {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            margin-right: 40px;
-            height: 100%;
-
-            .settings {
-                margin: 30px;
-                cursor: pointer;
-            }
-
-            .user {
-                cursor: pointer;
-                margin-left: 10px;
-            }
-        }
-    }
-
-    .principal {
-        margin-left: 250px;
-        margin-top: 20px;
-        padding: 40px;
-    }
+  .principal {
+    margin-left: 250px;
+    margin-top: 20px;
+    padding: 40px;
+  }
 }

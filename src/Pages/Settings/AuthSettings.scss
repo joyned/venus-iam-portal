@@ -1,26 +1,26 @@
 .authSettingsPage {
-    .authSettingsDescription {
-        margin: 10px 0 40px;
-    }
+  .authSettingsDescription {
+    margin: 10px 0 40px;
+  }
 
-    .configItem {
-        display: flex;
-        align-items: baseline;
-        flex-direction: column;
-        margin: 20px 0;
-    }
+  .configItem {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    margin: 20px 0;
+  }
 
-    .pageButtons {
-        display: flex;
-        justify-content: flex-end;
+  .pageButtons {
+    display: flex;
+    justify-content: flex-end;
 
-        button {
-            width: 75px;
-        }
+    button {
+      width: 75px;
     }
+  }
 
-    input {
-        color: var(--primary-color);
-        border-bottom-color: var(--primary-color);
-    }
+  input {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
 }

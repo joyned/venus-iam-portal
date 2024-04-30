@@ -1,9 +1,7 @@
 import { get } from "./RequestService";
 
 const getSystemInfo = () => {
-    return get('system/info');
-}
+  return get("system/info");
+};
 
-export {
-    getSystemInfo
-}
+export { getSystemInfo };
