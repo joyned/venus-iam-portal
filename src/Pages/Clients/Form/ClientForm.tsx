@@ -21,7 +21,7 @@ export default function ClientForm() {
     const [client, setClient] = useState<ClientModel>(new ClientModel());
     const [clientName, setClientName] = useState<string>();
     const [clientUrl, setClientUrl] = useState<string>();
-    const [clientAllowedUrls, setClientAllowedUrls] = useState<any[]>([]);
+    const [clientAllowedUrls, setClientAllowedUrls] = useState<string[]>([]);
     const [clientId, setClientId] = useState<string>();
     const [clientSecret, setClientSecret] = useState<string>();
 
@@ -29,12 +29,13 @@ export default function ClientForm() {
         if (params.id && Number(params.id) !== 0) {
             setLoading(true);
             getClientById(params.id).then((response: any) => {
-                const allUrls = response.allowedUrls.map((au: ClientAllowedUrlModel) => au.url);
                 setClient(response);
                 setClientId(response.id)
                 setClientName(response.name);
                 setClientUrl(response.url);
-                setAllowedUrls(allUrls);
+                setAllowedUrls(response.allowedUrls.map((au: any) => {
+                    return au;
+                }));
                 setClientId(response.clientId);
                 setClientSecret(response.clientSecret);
                 setLoading(false)
@@ -46,7 +47,6 @@ export default function ClientForm() {
         setLoading(true);
         client.allowedUrls = clientAllowedUrls.map((url: string) => {
             let allowed = new ClientAllowedUrlModel();
-            allowed.clientId = client.id;
             allowed.url = url;
             return allowed;
         });
