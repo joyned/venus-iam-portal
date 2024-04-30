@@ -1,7 +1,7 @@
 .loginPage {
-    background-color: var(--primary-color);
     min-width: 100vw;
     min-height: 100vh;
+    background-color: var(--surface-ground);
 
     .mainContent {
         height: 100vh;
@@ -18,12 +18,24 @@
         display: flex;
         flex-direction: column;
         padding: 50px;
-        background: var(--second-color);
+        background: var(--surface-overlay);
         color: white;
         border-radius: 3px;
 
         h1 {
             margin-bottom: 30px;
         }
+
+        .forgotPasswordLink {
+            margin-top: 10px;
+            color: var(--primary);
+            cursor: pointer;
+            text-align: center;
+        }
+    }
+
+    .footerContent {
+        position: fixed;
+        bottom: 5vh;
     }
 }
