@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
-
 const get = async <Type>(uri: string) => {
   return new Promise<Type>((resolve, reject) => {
+    const token = localStorage.getItem('token');
     axios
       .get<Type>(`${process.env.REACT_APP_API_HOST}/${uri}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -19,6 +18,7 @@ const get = async <Type>(uri: string) => {
 
 const post = async <Type>(uri: string, body: Type) => {
   return new Promise<Type>((resolve, reject) => {
+    const token = localStorage.getItem('token');
     axios
       .post<Type>(`${process.env.REACT_APP_API_HOST}/${uri}`, body, {
         headers: { Authorization: `Bearer ${token}` },
@@ -34,6 +34,7 @@ const post = async <Type>(uri: string, body: Type) => {
 
 const del = async <Type>(uri: string) => {
   return new Promise<Type>((resolve, reject) => {
+    const token = localStorage.getItem('token');
     axios
       .delete<Type>(`${process.env.REACT_APP_API_HOST}/${uri}`, {
         headers: { Authorization: `Bearer ${token}` },
