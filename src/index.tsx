@@ -19,6 +19,7 @@ import reportWebVitals from "./reportWebVitals";
 import About from "./Pages/About/About";
 import ClientForm from "./Pages/Clients/Form/ClientForm";
 import Guard from "./Security/Guard";
+import IAMLogin from "./Pages/IAMLogin/IAMLogin";
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/iamLogin',
+    element: <IAMLogin></IAMLogin>
+  }
 ]);
 
 const root = ReactDOM.createRoot(
