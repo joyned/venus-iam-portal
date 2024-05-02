@@ -3,14 +3,15 @@ import './IAMLogin.scss';
 import { useSearchParams } from 'react-router-dom';
 
 export default function IAMLogin() {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [error] = useState("");
 
     useEffect(() => {
         const clientId = searchParams.get("clientId");
         const clientSecret = searchParams.get("clientSecret");
+        console.log(clientId, clientSecret);
     })
 
     const login = async () => {

@@ -1,11 +1,10 @@
-import { FloatLabel } from "primereact/floatlabel";
-import { InputText } from "primereact/inputtext";
-import { useState } from "react";
-import "./Login.scss";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-import { doInternalLogin } from "../../Services/LoginService";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { doInternalLogin } from "../../Services/LoginService";
+import "./Login.scss";
 
 export default function Login() {
   const navigate = useNavigate();
