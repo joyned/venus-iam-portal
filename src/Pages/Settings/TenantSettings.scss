@@ -1,0 +1,30 @@
+.tenantSettingsPage {
+    .tenantSettingsDescription {
+        margin: 10px 0 40px;
+    }
+
+    .configItem {
+        display: flex;
+        align-items: baseline;
+        flex-direction: column;
+        margin: 20px 0;
+
+        .p-button {
+            margin-top: 10px !important;
+        }
+    }
+
+    .pageButtons {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            width: 75px;
+        }
+    }
+
+    input {
+        color: var(--primary-color);
+        border-bottom-color: var(--primary-color);
+    }
+}

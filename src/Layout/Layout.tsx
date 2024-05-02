@@ -60,6 +60,11 @@ export default function Layout(props: { children?: any; loading?: boolean }) {
           icon: "pi pi-fw pi-user",
           command: () => navigate("/settings/auth"),
         },
+        {
+          label: "Tenant",
+          icon: "pi pi-fw pi-user",
+          command: () => navigate("/settings/tenant"),
+        },
       ],
     },
   ];

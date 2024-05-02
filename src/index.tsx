@@ -20,6 +20,7 @@ import About from "./Pages/About/About";
 import ClientForm from "./Pages/Clients/Form/ClientForm";
 import Guard from "./Security/Guard";
 import IAMLogin from "./Pages/IAMLogin/IAMLogin";
+import TenantSettings from "./Pages/Settings/TenantSettings";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,14 @@ const router = createBrowserRouter([
         element: (
           <Guard>
             <AuthSettings></AuthSettings>
+          </Guard>
+        ),
+      },
+      {
+        path: "tenant",
+        element: (
+          <Guard>
+            <TenantSettings></TenantSettings>
           </Guard>
         ),
       },
