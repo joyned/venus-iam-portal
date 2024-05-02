@@ -42,6 +42,8 @@ export default function GroupForm() {
           setRoles(filterByIdAndRemoveItems(response, group.roles || []));
           setLoading(false);
         });
+      } else {
+        setLoading(false);
       }
     });
   }, [params.id]);

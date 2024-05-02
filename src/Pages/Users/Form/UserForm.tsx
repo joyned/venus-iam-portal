@@ -52,8 +52,10 @@ export default function UserForm() {
           setGroups(filterByIdAndRemoveItems(groupsResponse, response.groups));
           setLoading(false);
         });
+      } else {
+        setLoading(false);
       }
-    });
+    })
   }, [params.id]);
 
   function setName(value: string): void {
