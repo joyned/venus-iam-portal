@@ -146,10 +146,6 @@ export default function ClientForm() {
     e.preventDefault();
   };
 
-  const onUpload = async (event: any) => {
-
-  }
-
   return (
     <Layout loading={loading}>
       <div className="clientFormPage">
