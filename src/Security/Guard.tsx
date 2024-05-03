@@ -9,7 +9,7 @@ export default function Guard(props: { children?: any }) {
     if (!token) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      navigate("/");
+      navigate("/?sessionExpired=true");
     }
   }, [navigate, token]);
 

@@ -14,9 +14,9 @@ const get = async <Type>(uri: string) => {
         if (error.response.status === 401 || error.response.status === 403) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.reload();
+        } else {
+          reject(error.response);
         }
-        reject(error.response);
       });
   });
 };
@@ -35,9 +35,9 @@ const post = async <Type>(uri: string, body: Type) => {
         if (error.response.status === 401 || error.response.status === 403) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.reload();
+        } else {
+          reject(error.response);
         }
-        reject(error.response);
       });
   });
 };
@@ -56,9 +56,9 @@ const del = async <Type>(uri: string) => {
         if (error.response.status === 401 || error.response.status === 403) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.reload();
+        } else {
+          reject(error.response);
         }
-        reject(error.response);
       });
   });
 };
