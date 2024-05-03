@@ -54,7 +54,9 @@ export default function Login() {
                 <span>{errorMessage}</span>
               </div>
             )}
-            <h1 style={{ textAlign: "center" }}>IAM Portal</h1>
+            <div className="logo">
+              <img src="/logo-venus.png" alt="Venus IAM"></img>
+            </div>
             <span>E-mail</span>
             <InputText
               type="email"

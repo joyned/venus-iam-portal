@@ -17,10 +17,19 @@
   .panelContent {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 35px 50px 50px 50px;
     background: var(--surface-overlay);
     color: white;
     border-radius: 3px;
+
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 250px;
+      }
+    }
 
     .errorMessage {
       background-color: #b71e1e;
