@@ -17,12 +17,22 @@ const deleteClient = async (clientId: string) => {
   return del<ClientModel>(`client/${clientId}`);
 };
 
-const checkCredentials = async (clientId: string, clientSecret: string, redirectUrl: string) => {
+const checkCredentials = async (
+  clientId: string,
+  clientSecret: string,
+  redirectUrl: string,
+) => {
   return post("client/checkCredentials", {
     clientId: clientId,
     clientSecret: clientSecret,
     redirectUrl: redirectUrl,
   });
-}
+};
 
-export { getClients, getClientById, saveClient, deleteClient, checkCredentials };
+export {
+  getClients,
+  getClientById,
+  saveClient,
+  deleteClient,
+  checkCredentials,
+};

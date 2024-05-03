@@ -12,7 +12,7 @@ export default function TenantSettings() {
   const [secondColor, setSecondColor] = useState<string>("#000000");
   const [textColor, setTextColor] = useState<string>("#000000");
 
-  const onUpload = () => { };
+  const onUpload = () => {};
 
   return (
     <Layout>
@@ -36,7 +36,7 @@ export default function TenantSettings() {
                 onUpload={onUpload}
               />
             </div>
-            
+
             <div className="configItem">
               <span>Name</span>
               <InputText></InputText>
@@ -45,13 +45,16 @@ export default function TenantSettings() {
             <div className="configItem">
               <span>Primary Color</span>
               <div className="color">
-                <ColorPicker format="hex"
+                <ColorPicker
+                  format="hex"
                   value={primaryColor}
                   onChange={(e: any) => setPrimaryColor(`#${e.value}`)}
-                  style={{ width: '2em' }} />
-                <InputText value={primaryColor}
+                  style={{ width: "2em" }}
+                />
+                <InputText
+                  value={primaryColor}
                   onChange={(e: any) => setPrimaryColor(e.target.value)}
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: "10px" }}
                 ></InputText>
               </div>
             </div>
@@ -59,13 +62,16 @@ export default function TenantSettings() {
             <div className="configItem">
               <span>Second Color</span>
               <div className="color">
-                <ColorPicker format="hex"
+                <ColorPicker
+                  format="hex"
                   value={secondColor}
                   onChange={(e: any) => setSecondColor(`#${e.value}`)}
-                  style={{ width: '2em' }} />
-                <InputText value={secondColor}
+                  style={{ width: "2em" }}
+                />
+                <InputText
+                  value={secondColor}
                   onChange={(e: any) => setSecondColor(e.target.value)}
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: "10px" }}
                 ></InputText>
               </div>
             </div>
@@ -73,13 +79,16 @@ export default function TenantSettings() {
             <div className="configItem">
               <span>Text Color</span>
               <div className="color">
-                <ColorPicker format="hex"
+                <ColorPicker
+                  format="hex"
                   value={textColor}
                   onChange={(e: any) => setTextColor(`#${e.value}`)}
-                  style={{ width: '2em' }} />
-                <InputText value={textColor}
+                  style={{ width: "2em" }}
+                />
+                <InputText
+                  value={textColor}
                   onChange={(e: any) => setTextColor(e.target.value)}
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: "10px" }}
                 ></InputText>
               </div>
             </div>

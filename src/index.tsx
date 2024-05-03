@@ -8,7 +8,6 @@ import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./router";
 
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );

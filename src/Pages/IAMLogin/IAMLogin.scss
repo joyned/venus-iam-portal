@@ -1,89 +1,89 @@
 .iamLogin {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-    background-color: var(--surface-ground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  background-color: var(--surface-ground);
 
-    .loadingPanel {
-        padding: 35px;
+  .loadingPanel {
+    padding: 35px;
 
-        .loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-            i {
-                font-size: 10rem;
-                margin-bottom: 20px;
-            }
-        }
+      i {
+        font-size: 10rem;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .container {
+    width: 100%;
+    max-width: 400px;
+    padding: 35px;
+    border-radius: 5px;
+    background: var(--surface-overlay);
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+
+      img {
+        width: 150px;
+      }
     }
 
-    .container {
+    .errorMessage {
+      background: #ad1e1e;
+      color: white;
+      text-align: center;
+      padding: 11px;
+    }
+
+    .loginForm {
+      color: white;
+      margin-top: 30px;
+
+      label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      input,
+      .p-password {
         width: 100%;
-        max-width: 400px;
-        padding: 35px;
-        border-radius: 5px;
-        background: var(--surface-overlay);
+      }
 
-        .title {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ffffff;
+      .p-button {
+        width: 100%;
+      }
 
-            img {
-                width: 150px;
-            }
+      .forgotPassword {
+        text-align: center;
+        margin-top: 10px;
+
+        span {
+          cursor: pointer;
         }
 
-        .errorMessage {
-            background: #ad1e1e;
-            color: white;
-            text-align: center;
-            padding: 11px;
+        span:hover {
+          text-decoration: underline;
         }
-
-        .loginForm {
-            color: white;
-            margin-top: 30px;
-
-            label {
-                display: block;
-                font-weight: 500;
-                margin-bottom: 5px;
-            }
-
-            input,
-            .p-password {
-                width: 100%;
-            }
-
-            .p-button {
-                width: 100%;
-            }
-
-            .forgotPassword {
-                text-align: center;
-                margin-top: 10px;
-
-                span {
-                    cursor: pointer;
-                }
-
-                span:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 @media (max-width: 690px) {
-    .iamLogin {
-        .container {
-            background-color: transparent !important;
-        }
+  .iamLogin {
+    .container {
+      background-color: transparent !important;
     }
+  }
 }

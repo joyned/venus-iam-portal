@@ -164,7 +164,10 @@ export default function ClientForm() {
               onChange={(e) => setClientUrl(e.target.value)}
             />
             <span>Image:</span>
-            <ImageUpload value={clientImage} onChange={(image: string) => setClientImage(image)}></ImageUpload>
+            <ImageUpload
+              value={clientImage}
+              onChange={(image: string) => setClientImage(image)}
+            ></ImageUpload>
             {clientId && (
               <div>
                 <span>Client ID:</span>

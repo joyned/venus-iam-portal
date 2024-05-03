@@ -25,7 +25,9 @@ export default function IAMLogin() {
           setError(error.data.message);
         });
     } else {
-      setError("Invalid parameters. Please, contact your support team for futher information.");
+      setError(
+        "Invalid parameters. Please, contact your support team for futher information.",
+      );
     }
   }, [searchParams]);
 
@@ -78,7 +80,6 @@ export default function IAMLogin() {
           </form>
         </div>
       )}
-
     </div>
   );
 }
