@@ -69,7 +69,8 @@ export default function RoleForm() {
             });
           }
         }
-      }).finally(() => setLoading(false));
+      })
+      .finally(() => setLoading(false));
     event.preventDefault();
   }
 

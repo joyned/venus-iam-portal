@@ -130,9 +130,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/iamLogin',
-    element: <IAMLogin></IAMLogin>
-  }
+    path: "/iamLogin",
+    element: <IAMLogin></IAMLogin>,
+  },
 ]);
 
 const root = ReactDOM.createRoot(

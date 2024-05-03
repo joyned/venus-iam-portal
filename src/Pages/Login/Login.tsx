@@ -12,14 +12,16 @@ export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     const sessionExpired = searchParams.get("sessionExpired");
     if (sessionExpired) {
       setErrorMessage("Your session has expired. Please, login again.");
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -34,10 +36,12 @@ export default function Login() {
         if (error.status === 401) {
           setErrorMessage(error.data.message);
         } else {
-          setErrorMessage(`An internal error occurred. Please, contact support.`);
+          setErrorMessage(
+            `An internal error occurred. Please, contact support.`,
+          );
         }
-        setLoading(false)
-      })
+        setLoading(false);
+      });
   };
 
   return (
@@ -66,7 +70,12 @@ export default function Login() {
               feedback={false}
               tabIndex={2}
             />
-            <Button type="submit" label="Login" disabled={loading} tabIndex={3}></Button>
+            <Button
+              type="submit"
+              label="Login"
+              disabled={loading}
+              tabIndex={3}
+            ></Button>
             <span className="forgotPasswordLink">Forgot Password?</span>
           </form>
           <div className="footerContent">

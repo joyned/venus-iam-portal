@@ -55,7 +55,7 @@ export default function UserForm() {
       } else {
         setLoading(false);
       }
-    })
+    });
   }, [params.id]);
 
   function setName(value: string): void {

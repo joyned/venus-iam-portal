@@ -1,4 +1,4 @@
 export default class AuthSettingsModel {
-    tokenDurability?: number;
-    generateRefreshToken?: boolean;
+  tokenDurability?: number;
+  generateRefreshToken?: boolean;
 }
