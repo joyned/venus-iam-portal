@@ -36,8 +36,9 @@ export default function ImageUpload(props: {
       props.onChange(base64);
       toast.current?.show({
         severity: "success",
-        summary: "File Uploaded",
-        detail: `${file.name} is uploaded.`,
+        summary: "File selected successfully.",
+        detail: `${file.name} was selected successfully. Do not forget to save the changes.`,
+        life: 10000,
       });
     }
   };
