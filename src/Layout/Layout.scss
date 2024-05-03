@@ -32,6 +32,7 @@
 
     .content {
       margin: 15px;
+      margin-top: -15px;
       display: flex;
       color: white;
       flex-direction: column;
@@ -50,6 +51,12 @@
       .leftMenuContent {
         background-color: transparent;
         border: none;
+
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
   }

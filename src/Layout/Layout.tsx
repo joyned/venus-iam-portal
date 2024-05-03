@@ -13,7 +13,7 @@ export default function Layout(props: { children?: any; loading?: boolean }) {
       template: () => {
         return (
           <div className="title">
-            <h1>TENANT</h1>
+            <img src="/logo-venus.png" alt="Venus IAM" style={{ width: '200px' }}></img>
           </div>
         );
       },
