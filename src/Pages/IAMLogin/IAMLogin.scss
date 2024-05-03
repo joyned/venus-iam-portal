@@ -79,3 +79,11 @@
         }
     }
 }
+
+@media (max-width: 690px) {
+    .iamLogin {
+        .container {
+            background-color: transparent !important;
+        }
+    }
+}

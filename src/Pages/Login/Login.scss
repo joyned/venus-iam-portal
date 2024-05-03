@@ -46,3 +46,15 @@
     bottom: 5vh;
   }
 }
+
+@media (max-width: 690px) {
+  .loginPage {
+    .mainContent {
+      .panel {
+        .panelContent {
+          background-color: transparent !important;
+        }
+      }
+    }
+  }
+}
