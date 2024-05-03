@@ -47,7 +47,7 @@ export default function TenantSettings() {
               <div className="color">
                 <ColorPicker format="hex"
                   value={primaryColor}
-                  onChange={(e: any) => setPrimaryColor(e.value)}
+                  onChange={(e: any) => setPrimaryColor(`#${e.value}`)}
                   style={{ width: '2em' }} />
                 <InputText value={primaryColor}
                   onChange={(e: any) => setPrimaryColor(e.target.value)}
@@ -61,7 +61,7 @@ export default function TenantSettings() {
               <div className="color">
                 <ColorPicker format="hex"
                   value={secondColor}
-                  onChange={(e: any) => setSecondColor(e.value)}
+                  onChange={(e: any) => setSecondColor(`#${e.value}`)}
                   style={{ width: '2em' }} />
                 <InputText value={secondColor}
                   onChange={(e: any) => setSecondColor(e.target.value)}
@@ -75,7 +75,7 @@ export default function TenantSettings() {
               <div className="color">
                 <ColorPicker format="hex"
                   value={textColor}
-                  onChange={(e: any) => setTextColor(e.value)}
+                  onChange={(e: any) => setTextColor(`#${e.value}`)}
                   style={{ width: '2em' }} />
                 <InputText value={textColor}
                   onChange={(e: any) => setTextColor(e.target.value)}
