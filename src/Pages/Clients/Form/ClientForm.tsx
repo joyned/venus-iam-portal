@@ -99,6 +99,7 @@ export default function ClientForm() {
 
   const acceptDelete = () => {
     if (client.id) {
+      setLoading(true);
       deleteClient(client.id)
         .then(() => navigate("/client"))
         .catch((err) => {
@@ -116,7 +117,8 @@ export default function ClientForm() {
                 "An error occurred while saving the user. Please, contact support.",
             });
           }
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 

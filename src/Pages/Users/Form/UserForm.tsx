@@ -97,6 +97,7 @@ export default function UserForm() {
 
   const acceptDelete = () => {
     if (user.id) {
+      setLoading(true);
       deleteUser(user.id)
         .then(() => navigate("/user"))
         .catch((err) => {
@@ -114,7 +115,8 @@ export default function UserForm() {
                 "An error occurred while saving the user. Please, contact support.",
             });
           }
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 

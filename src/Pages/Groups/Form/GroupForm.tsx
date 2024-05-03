@@ -62,6 +62,9 @@ export default function GroupForm() {
     group.roles = selectedRoles;
     setLoading(true);
     saveGroup(group)
+      .then(() => {
+        navigate("/group");
+      })
       .catch((err) => {
         if (err.data.errorKey === "NOT_EDITABLE") {
           toast.current?.show({
@@ -107,6 +110,7 @@ export default function GroupForm() {
 
   const acceptDelete = () => {
     if (group.id) {
+      setLoading(true);
       deleteGroup(group.id)
         .then(() => navigate("/group"))
         .catch((err) => {
@@ -134,7 +138,8 @@ export default function GroupForm() {
               });
             }
           }
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 

@@ -42,7 +42,6 @@ export default function RoleForm() {
     role.name = roleName;
     saveRole(role)
       .then(() => {
-        setLoading(false);
         navigate("/role");
       })
       .catch((err) => {
@@ -70,12 +69,13 @@ export default function RoleForm() {
             });
           }
         }
-      });
+      }).finally(() => setLoading(false));
     event.preventDefault();
   }
 
   function acceptDelete() {
     if (role.id) {
+      setLoading(true);
       deleteRole(role.id)
         .then(() => navigate("/role"))
         .catch((err) => {
@@ -93,7 +93,8 @@ export default function RoleForm() {
                 "An error occurred while saving the user. Please, contact support.",
             });
           }
-        });
+        })
+        .finally(() => setLoading(false));
     }
   }
 
