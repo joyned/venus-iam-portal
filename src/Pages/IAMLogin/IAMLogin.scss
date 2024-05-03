@@ -16,11 +16,18 @@
         .title {
             text-align: center;
             margin-bottom: 30px;
-            color: white;
+            color: #ffffff;
 
             img {
                 width: 150px;
             }
+        }
+
+        .errorMessage {
+            background: #ad1e1e;
+            color: white;
+            text-align: center;
+            padding: 11px;
         }
 
         .loginForm {

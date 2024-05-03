@@ -35,9 +35,8 @@ const post = async <Type>(uri: string, body: Type) => {
         if (error.response.status === 401 || error.response.status === 403) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-        } else {
-          reject(error.response);
         }
+        reject(error.response);
       });
   });
 };
