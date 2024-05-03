@@ -16,10 +16,13 @@ import {
 } from "../../../Services/ClientService";
 import "./ClientForm.scss";
 import { Password } from "primereact/password";
+import { FileUpload } from "primereact/fileupload";
+import { urltoFile } from "../../../Utils/Utils";
 
 export default function ClientForm() {
   const navigate = useNavigate();
   const params = useParams();
+  const fileUploadRef = useRef<FileUpload>(null);
   const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState(false);
   const [client, setClient] = useState<ClientModel>(new ClientModel());
@@ -28,6 +31,7 @@ export default function ClientForm() {
   const [clientAllowedUrls, setClientAllowedUrls] = useState<string[]>([]);
   const [clientId, setClientId] = useState<string>();
   const [clientSecret, setClientSecret] = useState<string>();
+  const [clientImage, setClientImage] = useState<string>();
 
   useEffect(() => {
     if (params.id && Number(params.id) !== 0) {
@@ -45,6 +49,11 @@ export default function ClientForm() {
           );
           setClientId(response.clientId);
           setClientSecret(response.clientSecret);
+          setClientImage(response.image);
+          if (fileUploadRef.current) {
+            const image = urltoFile(response.image);
+            fileUploadRef.current?.setUploadedFiles([image]);
+          }
           setLoading(false);
         })
         .finally(() => setLoading(false));
@@ -61,6 +70,7 @@ export default function ClientForm() {
 
     client.name = clientName;
     client.url = clientUrl;
+    client.image = clientImage;
 
     saveClient(client)
       .then(() => navigate("/client"))
@@ -81,7 +91,6 @@ export default function ClientForm() {
         }
       })
       .finally(() => setLoading(false));
-
     event.preventDefault();
   };
 
@@ -143,6 +152,25 @@ export default function ClientForm() {
     e.preventDefault();
   };
 
+  const onUpload = async (event: any) => {
+    const file = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob());
+
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      setClientImage(base64data?.toString());
+      toast.current?.show({
+        severity: "success",
+        summary: "File Uploaded",
+        detail: `${file.name} is uploaded.`,
+      })
+    };
+
+  }
+
   return (
     <Layout loading={loading}>
       <div className="clientFormPage">
@@ -160,6 +188,8 @@ export default function ClientForm() {
               value={clientUrl}
               onChange={(e) => setClientUrl(e.target.value)}
             />
+            <span>Image:</span>
+            <FileUpload ref={fileUploadRef} name="clientImage" accept="image/*" customUpload auto uploadHandler={onUpload} />
             {clientId && (
               <div>
                 <span>Client ID:</span>

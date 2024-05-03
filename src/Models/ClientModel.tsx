@@ -7,5 +7,6 @@ export default class ClientModel {
   allowedUrls?: ClientAllowedUrlModel[];
   clientId?: string;
   clientSecret?: string;
+  image?: string;
   createdAt?: string;
 }
