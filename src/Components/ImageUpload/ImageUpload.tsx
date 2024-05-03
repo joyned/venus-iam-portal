@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import './FileUpload.scss';
 import { Toast } from 'primereact/toast';
+import { useEffect, useRef, useState } from 'react';
+import './ImageUpload.scss';
 
-export default function FileUpload(props: { value: string | undefined, onChange?: any, label?: string }) {
+export default function ImageUpload(props: { value: string | undefined, onChange?: any, label?: string }) {
     const toast = useRef<Toast>(null);
     const [imageBase64, setImageBase64] = useState<string>();
     const [buttonName, setButtonName] = useState("Upload");

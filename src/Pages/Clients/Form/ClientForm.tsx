@@ -16,7 +16,7 @@ import {
 } from "../../../Services/ClientService";
 import "./ClientForm.scss";
 import { Password } from "primereact/password";
-import FileUpload from "../../../Components/FileUpload/FileUpload";
+import ImageUpload from "../../../Components/ImageUpload/ImageUpload";
 
 export default function ClientForm() {
   const navigate = useNavigate();
@@ -168,7 +168,7 @@ export default function ClientForm() {
               onChange={(e) => setClientUrl(e.target.value)}
             />
             <span>Image:</span>
-            <FileUpload value={clientImage} onChange={(image: string) => setClientImage(image)}></FileUpload>
+            <ImageUpload value={clientImage} onChange={(image: string) => setClientImage(image)}></ImageUpload>
             {clientId && (
               <div>
                 <span>Client ID:</span>
