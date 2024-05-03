@@ -1,18 +1,17 @@
+import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { FileUpload } from "primereact/fileupload";
+import { ColorPicker } from "primereact/colorpicker";
 import { InputText } from "primereact/inputtext";
+import { useState } from "react";
+import ImageUpload from "../../Components/ImageUpload/ImageUpload";
 import Layout from "../../Layout/Layout";
 import "./TenantSettings.scss";
-import { useState } from "react";
-import { ColorPicker } from "primereact/colorpicker";
-import { Button } from "primereact/button";
 
 export default function TenantSettings() {
+  const [tenantDefaultImage, setTenantDefaultImage] = useState<string>("");
   const [primaryColor, setPrimaryColor] = useState<string>("#000000");
   const [secondColor, setSecondColor] = useState<string>("#000000");
   const [textColor, setTextColor] = useState<string>("#000000");
-
-  const onUpload = () => {};
 
   return (
     <Layout>
@@ -28,12 +27,8 @@ export default function TenantSettings() {
           <form>
             <div className="configItem">
               <span>Login Image</span>
-              <FileUpload
-                mode="basic"
-                name="demo[]"
-                accept="image/*"
-                maxFileSize={1000000}
-                onUpload={onUpload}
+              <ImageUpload value={tenantDefaultImage}
+                onChange={(image: string) => setTenantDefaultImage(image)}
               />
             </div>
 
