@@ -37,38 +37,48 @@ export default function IAMLogin() {
 
   return (
     <div className="iamLogin">
-      <div className="container">
-        <div className="title">
-          <img src="/logo192.png" alt="Tenant Logo"></img>
-          <h3>Sign in to your account</h3>
+      {loading ? (
+        <div className="loadingPanel">
+          <div className="loading">
+            <i className="pi pi-spin pi-spinner"></i>
+            <span>Loading...</span>
+          </div>
         </div>
-        {error && (
-          <div className="errorMessage">
-            <span>{error}</span>
+      ) : (
+        <div className="container">
+          <div className="title">
+            <img src="/logo192.png" alt="Tenant Logo"></img>
+            <h3>Sign in to your account</h3>
           </div>
-        )}
-        <form onSubmit={handleSubmit} className="loginForm">
-          <span>E-mail</span>
-          <InputText
-            disabled={loading}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <span>Password</span>
-          <Password
-            disabled={loading}
-            type="password"
-            value={password}
-            feedback={false}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button type="submit" disabled={loading} label="Login"></Button>
-          <div className="forgotPassword">
-            <span>Forgot your password?</span>
-          </div>
-        </form>
-      </div>
+          {error && (
+            <div className="errorMessage">
+              <span>{error}</span>
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="loginForm">
+            <span>E-mail</span>
+            <InputText
+              disabled={loading}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <span>Password</span>
+            <Password
+              disabled={loading}
+              type="password"
+              value={password}
+              feedback={false}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" disabled={loading} label="Login"></Button>
+            <div className="forgotPassword">
+              <span>Forgot your password?</span>
+            </div>
+          </form>
+        </div>
+      )}
+
     </div>
   );
 }
