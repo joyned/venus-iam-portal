@@ -3,26 +3,31 @@ import { Card } from "primereact/card";
 import { Chips, ChipsChangeEvent } from "primereact/chips";
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+import { PickList } from "primereact/picklist";
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ImageUpload from "../../../Components/ImageUpload/ImageUpload";
 import Layout from "../../../Layout/Layout";
 import ClientAllowedUrlModel from "../../../Models/ClientAllowedUrlModel";
 import ClientModel from "../../../Models/ClientModel";
+import GroupModel from "../../../Models/GroupModel";
 import {
   deleteClient,
   getClientById,
   saveClient,
 } from "../../../Services/ClientService";
+import { getGroups } from "../../../Services/GroupService";
 import "./ClientForm.scss";
-import { Password } from "primereact/password";
-import ImageUpload from "../../../Components/ImageUpload/ImageUpload";
+import { filterByIdAndRemoveItems } from "../../../Utils/Utils";
 
 export default function ClientForm() {
   const navigate = useNavigate();
   const params = useParams();
   const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState(false);
+  const [groups, setGroups] = useState<GroupModel[]>([]);
   const [client, setClient] = useState<ClientModel>(new ClientModel());
   const [clientName, setClientName] = useState<string>();
   const [clientUrl, setClientUrl] = useState<string>();
@@ -30,28 +35,35 @@ export default function ClientForm() {
   const [clientId, setClientId] = useState<string>();
   const [clientSecret, setClientSecret] = useState<string>();
   const [clientImage, setClientImage] = useState<string>();
+  const [selectedGroups, setSelectedGroups] = useState<GroupModel[]>([]);
 
   useEffect(() => {
-    if (params.id && Number(params.id) !== 0) {
-      setLoading(true);
-      getClientById(params.id)
-        .then((response: any) => {
-          setClient(response);
-          setClientId(response.id);
-          setClientName(response.name);
-          setClientUrl(response.url);
-          setAllowedUrls(
-            response.allowedUrls.map((au: any) => {
-              return au;
-            }),
-          );
-          setClientId(response.clientId);
-          setClientSecret(response.clientSecret);
-          setClientImage(response.image);
-          setLoading(false);
-        })
-        .finally(() => setLoading(false));
-    }
+    setLoading(true);
+    getGroups().then((groupsResponse: GroupModel[]) => {
+      setGroups(groupsResponse);
+      if (params.id && Number(params.id) !== 0) {
+        getClientById(params.id)
+          .then((response: any) => {
+            setClient(response);
+            setClientId(response.id);
+            setClientName(response.name);
+            setClientUrl(response.url);
+            setAllowedUrls(
+              response.allowedUrls.map((au: any) => {
+                return au;
+              }),
+            );
+            setSelectedGroups(response.allowedGroups);
+            setGroups(filterByIdAndRemoveItems(groupsResponse, response.allowedGroups))
+            setClientId(response.clientId);
+            setClientSecret(response.clientSecret);
+            setClientImage(response.image);
+            setLoading(false)
+          })
+      } else {
+        setLoading(false)
+      }
+    });
   }, [params.id]);
 
   const handleSubmit = (event: any) => {
@@ -62,6 +74,7 @@ export default function ClientForm() {
       return allowed;
     });
 
+    client.allowedGroups = selectedGroups;
     client.name = clientName;
     client.url = clientUrl;
     client.image = clientImage;
@@ -146,6 +159,19 @@ export default function ClientForm() {
     e.preventDefault();
   };
 
+  const onChange = (event: { source: any; target: any }) => {
+    setGroups(event.source);
+    setSelectedGroups(event.target);
+  };
+
+  const itemTemplate = (item: any) => {
+    return (
+      <div className="flex flex-wrap p-2 items-center gap-3">
+        <span className="font-bold">{item.name}</span>
+      </div>
+    );
+  };
+
   return (
     <Layout loading={loading}>
       <div className="clientFormPage">
@@ -205,6 +231,24 @@ export default function ClientForm() {
                 />
               </div>
             )}
+
+            <div style={{ marginTop: '30px' }}>
+              <span>Allowed Groups:</span>
+              <PickList
+                dataKey="id"
+                source={groups}
+                target={selectedGroups}
+                onChange={onChange}
+                itemTemplate={itemTemplate}
+                breakpoint="1280px"
+                sourceHeader="Available"
+                targetHeader="Selected"
+                sourceStyle={{ height: "24rem" }}
+                targetStyle={{ height: "24rem" }}
+                style={{ marginTop: '20px' }}
+              />
+            </div>
+
             <Button label="Save" disabled={loading}></Button>
             <Button
               label="Delete"
