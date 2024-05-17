@@ -3,8 +3,9 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import "./IAMLogin.scss";
 import { checkCredentials } from "../../Services/ClientService";
+import { getLoginSettings } from "../../Services/IAMLoginService";
+import "./IAMLogin.scss";
 
 export default function IAMLogin() {
   const [searchParams] = useSearchParams();
@@ -12,11 +13,29 @@ export default function IAMLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [tenantDefaultImage, setTenantDefaultImage] = useState<string | undefined>("");
+  const [tenantName, setTenantName] = useState<string>("");
+  const [primaryColor, setPrimaryColor] = useState<string>("#000000");
+  const [secondColor, setSecondColor] = useState<string>("#000000");
+  const [textColor, setTextColor] = useState<string>("#000000");
 
   useEffect(() => {
     const clientId = searchParams.get("clientId");
     const clientSecret = searchParams.get("clientSecret");
     const redirectUrl = searchParams.get("redirectTo");
+    setLoading(true);
+    getLoginSettings(clientId)
+      .then((response) => {
+        setTenantDefaultImage(response.image);
+        setTenantName(response.name);
+        setPrimaryColor(response.primaryColor);
+        setSecondColor(response.secondColor);
+        setTextColor(response.textColor);
+      })
+      .catch((error) => {
+        setError(error.data.message);
+      }).finally(() => setLoading(false));
+
     if (clientId && clientSecret && redirectUrl) {
       setLoading(true);
       checkCredentials(clientId, clientSecret, redirectUrl)
@@ -38,7 +57,7 @@ export default function IAMLogin() {
   };
 
   return (
-    <div className="iamLogin">
+    <div className="iamLogin" style={{ background: primaryColor }}>
       {loading ? (
         <div className="loadingPanel">
           <div className="loading">
@@ -47,10 +66,16 @@ export default function IAMLogin() {
           </div>
         </div>
       ) : (
-        <div className="container">
+        <div className="container" style={{ background: secondColor }}>
           <div className="title">
-            <img src="/logo192.png" alt="Tenant Logo"></img>
-            <h3>Sign in to your account</h3>
+            {tenantDefaultImage ? (
+              <img src={tenantDefaultImage} alt="Tenant Logo"></img>
+            ) : (
+              <img src="/logo192.png" alt="Tenant Logo"></img>
+            )}
+            <h3 style={{ color: textColor }}>
+              {tenantName ? tenantName : "Sign in to your account"}
+            </h3>
           </div>
           {error && (
             <div className="errorMessage">
@@ -58,24 +83,26 @@ export default function IAMLogin() {
             </div>
           )}
           <form onSubmit={handleSubmit} className="loginForm">
-            <span>E-mail</span>
+            <span style={{ color: textColor }}>E-mail</span>
             <InputText
               disabled={loading}
               type="email"
               value={email}
+              style={{ color: `${textColor} !important` }}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <span>Password</span>
+            <span style={{ color: textColor }}>Password</span>
             <Password
               disabled={loading}
               type="password"
               value={password}
               feedback={false}
+              style={{ color: textColor }}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" disabled={loading} label="Login"></Button>
+            <Button type="submit" disabled={loading} label="Login" style={{ background: primaryColor, color: textColor }}></Button>
             <div className="forgotPassword">
-              <span>Forgot your password?</span>
+              <span style={{ color: textColor }}>Forgot your password?</span>
             </div>
           </form>
         </div>
