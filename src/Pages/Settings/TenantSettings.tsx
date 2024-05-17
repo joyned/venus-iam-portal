@@ -2,19 +2,59 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { ColorPicker } from "primereact/colorpicker";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageUpload from "../../Components/ImageUpload/ImageUpload";
 import Layout from "../../Layout/Layout";
 import "./TenantSettings.scss";
+import { getTenantSettings, saveTenantSettings } from "../../Services/TenantSettings";
+import { Toast } from "primereact/toast";
 
 export default function TenantSettings() {
-  const [tenantDefaultImage, setTenantDefaultImage] = useState<string>("");
+  const toast = useRef<Toast>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [tenantDefaultImage, setTenantDefaultImage] = useState<string | undefined>("");
+  const [tenantName, setTenantName] = useState<string>(""); // [1
   const [primaryColor, setPrimaryColor] = useState<string>("#000000");
   const [secondColor, setSecondColor] = useState<string>("#000000");
   const [textColor, setTextColor] = useState<string>("#000000");
 
+  useEffect(() => {
+    setLoading(true);
+    getTenantSettings()
+      .then((response) => {
+        setTenantDefaultImage(response.image);
+        setTenantName(response.name);
+        setPrimaryColor(response.primaryColor);
+        setSecondColor(response.secondColor);
+        setTextColor(response.textColor);
+      }).finally(() => {
+        setLoading(false);
+      })
+  }, []);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    const tenantSettings = {
+      image: tenantDefaultImage,
+      name: tenantName,
+      primaryColor: primaryColor,
+      secondColor: secondColor,
+      textColor: textColor,
+    }
+    saveTenantSettings(tenantSettings)
+      .then(() => {
+        toast.current?.show({ severity: "success", summary: "Success", detail: "Tenant settings saved" });
+        setLoading(false)
+      }).catch(() => {
+        toast.current?.show({ severity: "error", summary: "Error", detail: "Failed to save tenant settings" });
+        setLoading(false)
+      });
+  }
+
   return (
-    <Layout>
+    <Layout loading={loading}>
+      <Toast ref={toast}></Toast>
       <div className="tenantSettingsPage">
         <Card title="Tenant Management">
           <div className="tenantSettingsDescription">
@@ -24,7 +64,7 @@ export default function TenantSettings() {
               authorization.
             </p>
           </div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="configItem">
               <span>Login Image</span>
               <ImageUpload value={tenantDefaultImage}
@@ -34,7 +74,7 @@ export default function TenantSettings() {
 
             <div className="configItem">
               <span>Name</span>
-              <InputText></InputText>
+              <InputText value={tenantName} onChange={(e) => setTenantName(e.target.value)}></InputText>
             </div>
 
             <div className="configItem">
