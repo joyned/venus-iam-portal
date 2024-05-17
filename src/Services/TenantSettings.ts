@@ -9,4 +9,8 @@ const saveTenantSettings = (tenantSettings: TenantSettingsModel) => {
   return post<TenantSettingsModel>(`tenantSettings`, tenantSettings);
 };
 
-export { getTenantSettings, saveTenantSettings };
+const saveTenantImage = (image: string | undefined) => {
+  return post(`tenantSettings/image`, { image: image });
+};
+
+export { getTenantSettings, saveTenantSettings, saveTenantImage };

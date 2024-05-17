@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ImageUpload from "../../Components/ImageUpload/ImageUpload";
 import Layout from "../../Layout/Layout";
 import "./TenantSettings.scss";
-import { getTenantSettings, saveTenantSettings } from "../../Services/TenantSettings";
+import { getTenantSettings, saveTenantImage, saveTenantSettings } from "../../Services/TenantSettings";
 import { Toast } from "primereact/toast";
 
 export default function TenantSettings() {
@@ -17,6 +17,7 @@ export default function TenantSettings() {
   const [primaryColor, setPrimaryColor] = useState<string>("#000000");
   const [secondColor, setSecondColor] = useState<string>("#000000");
   const [textColor, setTextColor] = useState<string>("#000000");
+  const [hasImageChanged, setHasImageChanged] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -44,6 +45,13 @@ export default function TenantSettings() {
     }
     saveTenantSettings(tenantSettings)
       .then(() => {
+        if (hasImageChanged) {
+          saveTenantImage(tenantDefaultImage)
+            .catch(() => {
+              toast.current?.show({ severity: "error", summary: "Error", detail: "Failed to save tenant image" });
+            });
+          setHasImageChanged(false);
+        }
         toast.current?.show({ severity: "success", summary: "Success", detail: "Tenant settings saved" });
         setLoading(false)
       }).catch(() => {
@@ -68,7 +76,7 @@ export default function TenantSettings() {
             <div className="configItem">
               <span>Login Image</span>
               <ImageUpload value={tenantDefaultImage}
-                onChange={(image: string) => setTenantDefaultImage(image)}
+                onChange={(image: string) => { setTenantDefaultImage(image); setHasImageChanged(true) }}
               />
             </div>
 
