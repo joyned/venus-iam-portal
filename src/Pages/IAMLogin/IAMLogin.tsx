@@ -87,16 +87,15 @@ export default function IAMLogin() {
               disabled={loading}
               type="email"
               value={email}
-              style={{ color: `${textColor} !important` }}
+              style={{ color: textColor, background: primaryColor }}
               onChange={(e) => setEmail(e.target.value)}
             />
             <span style={{ color: textColor }}>Password</span>
-            <Password
+            <InputText
               disabled={loading}
               type="password"
               value={password}
-              feedback={false}
-              style={{ color: textColor }}
+              style={{ color: textColor, background: primaryColor }}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" disabled={!!(loading || error)} label="Login" style={{ background: primaryColor, color: textColor }}></Button>
