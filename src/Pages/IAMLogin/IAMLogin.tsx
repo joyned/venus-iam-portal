@@ -3,7 +3,7 @@ import { InputText } from "primereact/inputtext";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { checkCredentials } from "../../Services/ClientService";
-import { getLoginSettings } from "../../Services/IAMLoginService";
+import { doLogin, getLoginSettings } from "../../Services/IAMLoginService";
 import "./IAMLogin.scss";
 
 export default function IAMLogin() {
@@ -17,12 +17,14 @@ export default function IAMLogin() {
   const [primaryColor, setPrimaryColor] = useState<string>("");
   const [secondColor, setSecondColor] = useState<string>("");
   const [textColor, setTextColor] = useState<string>("");
+  const [redirectTo, setRedirectTo] = useState<string>("");
 
   useEffect(() => {
     const clientId = searchParams.get("clientId");
     const clientSecret = searchParams.get("clientSecret");
     const redirectUrl = searchParams.get("redirectTo");
     if (clientId && clientSecret && redirectUrl) {
+      setRedirectTo(redirectUrl);
       setLoading(true);
       getLoginSettings(clientId)
         .then((response) => {
@@ -50,8 +52,15 @@ export default function IAMLogin() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true)
     console.log(email);
     console.log(password);
+    doLogin(email, password).then((response: any) => {
+      console.log(response);
+      window.location.href = redirectTo + "?token=" + response.data.token;
+    }).catch((error) => {
+      setError(error.data.message);
+    });
   };
 
   return (
