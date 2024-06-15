@@ -15,29 +15,28 @@ export default function IAMLogin() {
   const [error, setError] = useState("");
   const [tenantDefaultImage, setTenantDefaultImage] = useState<string | undefined>("");
   const [tenantName, setTenantName] = useState<string>("");
-  const [primaryColor, setPrimaryColor] = useState<string>("#000000");
-  const [secondColor, setSecondColor] = useState<string>("#000000");
-  const [textColor, setTextColor] = useState<string>("#000000");
+  const [primaryColor, setPrimaryColor] = useState<string>("");
+  const [secondColor, setSecondColor] = useState<string>("");
+  const [textColor, setTextColor] = useState<string>("");
 
   useEffect(() => {
     const clientId = searchParams.get("clientId");
     const clientSecret = searchParams.get("clientSecret");
     const redirectUrl = searchParams.get("redirectTo");
-    setLoading(true);
-    getLoginSettings(clientId)
-      .then((response) => {
-        setTenantDefaultImage(response.image);
-        setTenantName(response.name);
-        setPrimaryColor(response.primaryColor);
-        setSecondColor(response.secondColor);
-        setTextColor(response.textColor);
-      })
-      .catch((error) => {
-        setError(error.data.message);
-      }).finally(() => setLoading(false));
-
     if (clientId && clientSecret && redirectUrl) {
       setLoading(true);
+      getLoginSettings(clientId)
+        .then((response) => {
+          setTenantDefaultImage(response.image);
+          setTenantName(response.name);
+          setPrimaryColor(response.primaryColor);
+          setSecondColor(response.secondColor);
+          setTextColor(response.textColor);
+        })
+        .catch((error) => {
+          setError(error.data.message);
+        }).finally(() => setLoading(false));
+
       checkCredentials(clientId, clientSecret, redirectUrl)
         .then(() => setLoading(false))
         .catch((error) => {
@@ -88,19 +87,18 @@ export default function IAMLogin() {
               disabled={loading}
               type="email"
               value={email}
-              style={{ color: `${textColor} !important` }}
+              style={{ color: textColor, background: primaryColor }}
               onChange={(e) => setEmail(e.target.value)}
             />
             <span style={{ color: textColor }}>Password</span>
-            <Password
+            <InputText
               disabled={loading}
               type="password"
               value={password}
-              feedback={false}
-              style={{ color: textColor }}
+              style={{ color: textColor, background: primaryColor }}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" disabled={loading} label="Login" style={{ background: primaryColor, color: textColor }}></Button>
+            <Button type="submit" disabled={!!(loading || error)} label="Login" style={{ background: primaryColor, color: textColor }}></Button>
             <div className="forgotPassword">
               <span style={{ color: textColor }}>Forgot your password?</span>
             </div>
