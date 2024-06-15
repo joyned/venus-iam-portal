@@ -57,8 +57,9 @@ export default function IAMLogin() {
     console.log(password);
     doLogin(email, password).then((response: any) => {
       console.log(response);
-      window.location.href = redirectTo + "?token=" + response.data.token;
+      window.location.href = redirectTo + "?token=" + response.token;
     }).catch((error) => {
+      setLoading(false)
       setError(error.data.message);
     });
   };
