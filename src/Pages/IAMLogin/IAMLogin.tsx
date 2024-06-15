@@ -1,6 +1,5 @@
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { checkCredentials } from "../../Services/ClientService";
